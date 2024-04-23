@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('elections', function (Blueprint $table) {
             $table->id();
-            $table->string('Description');
+            $table->string('Title');
+            $table->string('Description')->nullable();
             $table->boolean('IsOpen')->default(False);
             $table->boolean('IsPublicResult')->default(False);
             $table->json('Scope');

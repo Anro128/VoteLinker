@@ -14,6 +14,7 @@ class Election extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'Title',
         'Description',
         'IsOpen',
         'IsPublicResult',
