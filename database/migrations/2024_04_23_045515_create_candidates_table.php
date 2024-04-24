@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('DeputyChairman');
             $table->string('Vision');
             $table->string('Mision');
+            $table->string('Photo');
             $table->timestamps();
         });
     }

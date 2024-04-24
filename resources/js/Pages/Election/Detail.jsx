@@ -2,7 +2,8 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import PrimaryButton from '@/Components/PrimaryButton';
 import { Head } from '@inertiajs/react';
 
-export default function index({ auth, data }) {
+
+export default function index({ auth, data, candidates }) {
     
     return (
         <AuthenticatedLayout
@@ -19,10 +20,32 @@ export default function index({ auth, data }) {
                         <div className="p-6 text-gray-900">{data.Description}</div>
                         <div className="p-6 text-gray-900">{data.Result}</div>
                         <div className="p-6 text-gray-900">{data.Scope}</div>
-                        <a href="">Tambah Candidate</a>
+                        <a href={route('candidate.add')}>Tambah Candidate</a>
+
+                        {candidates.map((candidate) => (
+                            <li key={candidate.id}>
+                                {candidate.Photo && (
+                                    <div>
+                                        <img
+                                            src={`/storage/${candidate.Photo}`}  // Menentukan URL yang benar
+                                            alt={`Photo of ${candidate.Chairman}`}  // Teks alternatif
+                                            className="w-24 h-24 object-cover"  // Pengaturan tampilan
+                                        />
+                                    </div>
+                                )}
+                                <li>{candidate.SerialNumber}</li>
+                                <li>{candidate.Chairman}</li>
+                                <li>{candidate.DeputyChairman}</li>
+                                <li>{candidate.Vision}</li>
+                                <li>{candidate.Mision}</li>
+                                
+                            </li>
+                        ))}
                     </div>
                 </div>
             </div>
+
+            
 
         </AuthenticatedLayout>
     );

@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Election;
+use App\Models\Candidates;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -42,8 +43,10 @@ class ElectionController extends Controller
 
     public function detail($id){
         $data = Election::find($id);
+        $candidate= $data->candidates;
         return Inertia::render('Election/Detail',[
-            'data' =>$data
+            'data' =>$data,
+            'candidates'=>$candidate
         ]);
     }
 }

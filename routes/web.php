@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ElectionController;
+use App\Http\Controllers\CandidateController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -30,6 +31,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/election/add', [ElectionController::class, 'store'])->name('election.store');
     Route::get('/election', [ElectionController::class, 'index'])->name('election.index');
     Route::get('/election/{id}', [ElectionController::class, 'detail'])->name('election.detail');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/candidate/add', [CandidateController::class, 'add'])->name('candidate.add');
+    Route::post('/candidate/add', [CandidateController::class, 'store'])->name('candidate.store');
 });
 
 require __DIR__.'/auth.php';

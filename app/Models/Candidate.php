@@ -9,12 +9,13 @@ class Candidate extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'election_id',  // Foreign key yang menghubungkan ke tabel elections
+        'election_id',
         'SerialNumber',
         'Chairman',
         'DeputyChairman',
         'Vision',
         'Mision',
+        'Photo'
     ];
 
     // Definisikan relasi dengan model Election
