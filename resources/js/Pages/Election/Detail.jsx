@@ -1,10 +1,27 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import { useForm } from '@inertiajs/react';
 import PrimaryButton from '@/Components/PrimaryButton';
 import { Head } from '@inertiajs/react';
 
+export default function ElectionDetails({ auth, election, candidates }) {
+    const { data, setData, post, processing, errors } = useForm({
+        idElection: election.id,
+        idCandidate: '',
+        nim:auth.user.NIM
+    });
 
-export default function index({ auth, data, candidates }) {
+    const submitVote = () => {
+        post(route('election.vote')); // Mengirim data suara ke server
+    };
+
+    const handleVote = (candidateId) => {
+        setData('idElection', data.id); // Memperbarui idElection dengan id Election saat ini
+        setData('idCandidate', candidateId); // Memperbarui idCandidate dengan id kandidat yang dipilih
+        // submitVote();
+    };
+
     
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -16,37 +33,48 @@ export default function index({ auth, data, candidates }) {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">DETAIL ELECTION</div>
-                        <div className="p-6 text-gray-900">{data.Title}</div>
-                        <div className="p-6 text-gray-900">{data.Description}</div>
-                        <div className="p-6 text-gray-900">{data.Result}</div>
-                        <div className="p-6 text-gray-900">{data.Scope}</div>
+                        <div className="p-6 text-gray-900">{election.Title}</div>
+                        <div className="p-6 text-gray-900">{election.Description}</div>
+                        <div className="p-6 text-gray-900">{election.Result}</div>
+                        <div className="p-6 text-gray-900">{election.Scope}</div>
+
                         <a href={route('candidate.add')}>Tambah Candidate</a>
 
-                        {candidates.map((candidate) => (
-                            <li key={candidate.id}>
-                                {candidate.Photo && (
-                                    <div>
-                                        <img
-                                            src={`/storage/${candidate.Photo}`}  // Menentukan URL yang benar
-                                            alt={`Photo of ${candidate.Chairman}`}  // Teks alternatif
-                                            className="w-24 h-24 object-cover"  // Pengaturan tampilan
-                                        />
-                                    </div>
-                                )}
-                                <li>{candidate.SerialNumber}</li>
-                                <li>{candidate.Chairman}</li>
-                                <li>{candidate.DeputyChairman}</li>
-                                <li>{candidate.Vision}</li>
-                                <li>{candidate.Mision}</li>
-                                
-                            </li>
-                        ))}
+                        <ul>
+                            {candidates.map((candidate) => (
+                                <li key={candidate.id}>
+                                    {candidate.Photo && (
+                                        <div>
+                                            <img
+                                                src={`/storage/${candidate.Photo}`} 
+                                                alt={`${candidate.Chairman}`} 
+                                                className="w-24 h-24 object-cover" 
+                                            />
+                                        </div>
+                                    )}
+                                    <div>{candidate.SerialNumber}</div>
+                                    <div>{candidate.Chairman}</div>
+                                    <div>{candidate.DeputyChairman}</div>
+                                    <div>{candidate.Vision}</div>
+                                    <div>{candidate.Mision}</div>
+
+                                    <PrimaryButton
+                                        onClick={() => {
+                                            handleVote(candidate.id);
+                                        }}
+                                    >
+                                        Vote
+                                    </PrimaryButton>
+                                </li>
+                            ))}
+                        </ul>
+
+                        <PrimaryButton onClick={submitVote} disabled={processing}>
+                            Submit Vote
+                        </PrimaryButton>
                     </div>
                 </div>
             </div>
-
-            
-
         </AuthenticatedLayout>
     );
 }

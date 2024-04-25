@@ -22,9 +22,6 @@ export default function Add({ auth, elections }) {
         post(route('candidate.store'));
     };
 
-    const handleSelectChange = (e) => {
-        setData('election_id', e.target.value);
-    };
 
     return (
         <AuthenticatedLayout

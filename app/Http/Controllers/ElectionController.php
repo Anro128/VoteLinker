@@ -26,9 +26,8 @@ class ElectionController extends Controller
     }
 
     public function store(Request $request): RedirectResponse{
-
         $result = array_fill(0,$request->jumcalon, 0);
-        $resultss = implode(", ", $result);
+        $resultss = implode(",", $result);
 
         Election::Create([
             'Title' => $request->title,
@@ -42,11 +41,34 @@ class ElectionController extends Controller
     }
 
     public function detail($id){
-        $data = Election::find($id);
-        $candidate= $data->candidates;
+        $election = Election::find($id);
+        $candidate= $election->candidates;
         return Inertia::render('Election/Detail',[
-            'data' =>$data,
+            'election' =>$election,
             'candidates'=>$candidate
         ]);
+    }
+
+    public function vote(Request $request): RedirectResponse{
+        $election = Election::find($request->idElection);
+        $res = $election->Result;
+
+        $arrRes = explode(',', $res);
+        $arrRes[$request->idCandidate -1]+=1;
+
+        $rest = implode(",", $arrRes);
+
+
+        //add to list finish
+        $finish = $election->ListFinishVoting;
+        $finish = $finish . "," . $request->nim;
+
+
+        $election->update([
+            'Result'=> $rest,
+            'ListFinishVoting' => $finish
+        ]);
+
+        return back();
     }
 }
