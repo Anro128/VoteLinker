@@ -63,16 +63,44 @@ class ElectionController extends Controller
     }
 
     public function detail($id){
+        $nim = auth::user()->NIM;
         $election = Election::find($id);
+
+        // cek udah vote apa belum
+        $udh= Str::contains($election->ListFinishVoting,$nim);
+       
+        //ngecek akses
+        $ret=false;
+        $scop= $election->Scope;
+        $arrScope = explode(',', $scop);
+        for ($i = 0; $i < count($arrScope); $i++) {
+            if(Str::contains($nim, $arrScope[$i])){
+                $ret=true;
+            }
+        }
+
+        if(!$ret){
+            return back();
+        }
+
         $candidate= $election->candidates;
         return Inertia::render('Election/Detail',[
             'election' =>$election,
-            'candidates'=>$candidate
+            'candidates'=>$candidate,
+            'finish' => $udh
         ]);
     }
 
     public function vote(Request $request): RedirectResponse{
+        $nim = auth::user()->NIM;
         $election = Election::find($request->idElection);
+
+        // cek udah vote apa belum
+        $udh= Str::contains($election->ListFinishVoting,$nim);
+
+        if($udh) return back();
+
+        
         $res = $election->Result;
 
         $arrRes = explode(',', $res);

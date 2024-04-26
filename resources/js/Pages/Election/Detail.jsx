@@ -3,20 +3,19 @@ import { useForm } from '@inertiajs/react';
 import PrimaryButton from '@/Components/PrimaryButton';
 import { Head } from '@inertiajs/react';
 
-export default function ElectionDetails({ auth, election, candidates }) {
+export default function ElectionDetails({ auth, election, candidates, finish }) {
     const { data, setData, post, processing, errors } = useForm({
         idElection: election.id,
         idCandidate: ''
     });
 
     const submitVote = () => {
-        post(route('election.vote')); // Mengirim data suara ke server
+        post(route('election.vote'));
     };
 
     const handleVote = (candidateId) => {
-        setData('idElection', data.id); // Memperbarui idElection dengan id Election saat ini
-        setData('idCandidate', candidateId); // Memperbarui idCandidate dengan id kandidat yang dipilih
-        // submitVote();
+        setData('idElection', data.id); 
+        setData('idCandidate', candidateId);
     };
 
     
@@ -37,7 +36,12 @@ export default function ElectionDetails({ auth, election, candidates }) {
                         <div className="p-6 text-gray-900">{election.Result}</div>
                         <div className="p-6 text-gray-900">{election.Scope}</div>
 
-                        <a href={route('candidate.add')}>Tambah Candidate</a>
+                        {auth.user.role === "admin" ?(
+                            <div>
+                            <a href={route('election.edit')}>Edit Election</a>
+                            <a href={route('candidate.add')}>Tambah Candidate</a>
+                            </div>
+                        ):(<div></div>)}
 
                         <ul>
                             {candidates.map((candidate) => (
@@ -57,6 +61,7 @@ export default function ElectionDetails({ auth, election, candidates }) {
                                     <div>{candidate.Vision}</div>
                                     <div>{candidate.Mision}</div>
 
+                                    {finish === false ?(
                                     <PrimaryButton
                                         onClick={() => {
                                             handleVote(candidate.SerialNumber);
@@ -64,13 +69,17 @@ export default function ElectionDetails({ auth, election, candidates }) {
                                     >
                                         Vote
                                     </PrimaryButton>
+                                    ):(<div></div>)}
+
                                 </li>
                             ))}
                         </ul>
 
-                        <PrimaryButton onClick={submitVote} disabled={processing}>
-                            Submit Vote
-                        </PrimaryButton>
+                        {finish === false ?(
+                            <PrimaryButton onClick={submitVote} disabled={processing}>
+                                Submit Vote
+                            </PrimaryButton>
+                         ):(<div></div>)}
                     </div>
                 </div>
             </div>
