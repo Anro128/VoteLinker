@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Str;
 use App\Models\Election;
 use App\Models\Candidates;
 use Inertia\Inertia;
@@ -15,9 +16,30 @@ class ElectionController extends Controller
 {
     public function index()
     {
+        $nim = auth::user()->NIM;
         $elections = Election::All();
+
+        $filtered = $elections->filter(function ($item) use ($nim) {
+            $ret=false;
+            $scop= $item->Scope;
+            $arrScope = explode(',', $scop);
+            for ($i = 0; $i < count($arrScope); $i++) {
+                if(Str::contains($nim, $arrScope[$i])){
+                    $ret=true;
+                }
+            }
+            return $ret;
+        });
+
+        $filtered = $filtered->values();
+
+        if (!$filtered instanceof \Illuminate\Support\Collection) {
+            $filtered = collect($filtered); // Mengubah menjadi Collection jika tidak
+        }
+
+        // return dd($elections, $filtered);
         return Inertia::render('Election/Index',[
-            'elections' =>$elections
+            'elections' =>$filtered
         ]);
     }
 
@@ -54,14 +76,14 @@ class ElectionController extends Controller
         $res = $election->Result;
 
         $arrRes = explode(',', $res);
-        $arrRes[$request->idCandidate -1]+=1;
+        $arrRes[$request->idCandidate - 1]+=1;
 
         $rest = implode(",", $arrRes);
 
 
         //add to list finish
         $finish = $election->ListFinishVoting;
-        $finish = $finish . "," . $request->nim;
+        $finish = $finish . "," . auth::user()->NIM;
 
 
         $election->update([

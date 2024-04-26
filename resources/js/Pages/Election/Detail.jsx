@@ -6,8 +6,7 @@ import { Head } from '@inertiajs/react';
 export default function ElectionDetails({ auth, election, candidates }) {
     const { data, setData, post, processing, errors } = useForm({
         idElection: election.id,
-        idCandidate: '',
-        nim:auth.user.NIM
+        idCandidate: ''
     });
 
     const submitVote = () => {
@@ -60,7 +59,7 @@ export default function ElectionDetails({ auth, election, candidates }) {
 
                                     <PrimaryButton
                                         onClick={() => {
-                                            handleVote(candidate.id);
+                                            handleVote(candidate.SerialNumber);
                                         }}
                                     >
                                         Vote
