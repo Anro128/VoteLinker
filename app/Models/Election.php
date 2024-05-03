@@ -20,7 +20,8 @@ class Election extends Model
         'IsPublicResult',
         'Scope',
         'ListFinishVoting',
-        'Result'
+        'Result',
+        'TotalVoter'
     ];
 
     public function candidates()

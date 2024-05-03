@@ -9,13 +9,19 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\TempRegistController;
+use App\Http\Middleware\AdminOnly;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
                 ->name('register');
 
-    Route::post('register', [RegisteredUserController::class, 'store']);
+    Route::post('registertemp', [TempRegistController::class, 'store'])
+                ->name('registertemp');
+
+    Route::post('register', [RegisteredUserController::class, 'store'])
+                ->name('registerreal');
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');
@@ -56,4 +62,10 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
+});
+
+Route::middleware('auth', \App\Http\Middleware\AdminOnly::class,)->group(function (){
+    Route::get('/viewregistrans', [TempRegistController::class, 'index']) -> name('regist.view');
+    Route::get('/registacc/{id}', [TempRegistController::class, 'acc']) -> name('regist.acc');
+    Route::get('/registdel/{id}', [TempRegistController::class, 'del']) -> name('regist.del');
 });

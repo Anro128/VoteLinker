@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 use App\Models\Election;
 use App\Models\Candidates;
+use App\Models\User;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -18,6 +19,12 @@ class ElectionController extends Controller
     {
         $nim = auth::user()->NIM;
         $elections = Election::All();
+
+        if(auth::user()->role == 'admin'){
+            return Inertia::render('Election/Index',[
+                'elections' =>$elections
+            ]);
+        }
 
         $filtered = $elections->filter(function ($item) use ($nim) {
             $ret=false;
@@ -48,8 +55,23 @@ class ElectionController extends Controller
     }
 
     public function store(Request $request): RedirectResponse{
-        $result = array_fill(0,$request->jumcalon, 0);
+        $result = array_fill(0,$request->jumcalon + 1, 0);
         $resultss = implode(",", $result);
+
+        $allUser= User::All();
+        $TotVoter = 0 ;
+        foreach ($allUser as $user){
+            $nim = $user->NIM;
+            $ret= false;
+            $arrScope = explode(',', $request->scope);
+            for ($i = 0; $i < count($arrScope); $i++) {
+                if(Str::contains($nim, $arrScope[$i])){
+                    $ret=true;
+                }
+            }
+
+            if($ret) $TotVoter++;
+        }
 
         Election::Create([
             'Title' => $request->title,
@@ -57,6 +79,7 @@ class ElectionController extends Controller
             'Result'=> $resultss,
             'Scope'=> $request->scope,
             'ListFinishVoting'=>"X",
+            'TotalVoter'=>$TotVoter
         ]);
 
         return Redirect::route('election.index');
@@ -65,6 +88,7 @@ class ElectionController extends Controller
     public function detail($id){
         $nim = auth::user()->NIM;
         $election = Election::find($id);
+        $candidate= $election->candidates;
 
         // cek udah vote apa belum
         $udh= Str::contains($election->ListFinishVoting,$nim);
@@ -79,17 +103,19 @@ class ElectionController extends Controller
             }
         }
 
-        if(!$ret){
+        if(!$ret && auth::user()->role != 'admin'){
             return back();
         }
+        
+        // return dd($election, $candidate);
 
-        $candidate= $election->candidates;
         return Inertia::render('Election/Detail',[
             'election' =>$election,
             'candidates'=>$candidate,
             'finish' => $udh
         ]);
     }
+
 
     public function vote(Request $request): RedirectResponse{
         $nim = auth::user()->NIM;
@@ -100,11 +126,11 @@ class ElectionController extends Controller
 
         if($udh) return back();
 
-        
+
         $res = $election->Result;
 
         $arrRes = explode(',', $res);
-        $arrRes[$request->idCandidate - 1]+=1;
+        $arrRes[$request->idCandidate] +=1;
 
         $rest = implode(",", $arrRes);
 

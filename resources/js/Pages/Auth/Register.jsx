@@ -10,6 +10,7 @@ export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         NIM:'',
+        KTM:'',
         fakultas:'',
         departemen:'',
         email: '',
@@ -26,7 +27,7 @@ export default function Register() {
     const submit = (e) => {
         e.preventDefault();
 
-        post(route('register'));
+        post(route('registertemp'));
     };
 
     return (
@@ -151,6 +152,17 @@ export default function Register() {
                     />
 
                     <InputError message={errors.password_confirmation} className="mt-2" />
+                </div>
+                
+                <div>
+                    <InputLabel htmlFor="KTM" value="KTM" />
+                    <input
+                        type="file"
+                        name="KTM"
+                        id="KTM"
+                        onChange={(e) => setData('KTM', e.target.files[0])}  // Tangani perubahan file
+                    />
+                    <InputError message={errors.KTM} className="mt-2" />
                 </div>
 
                 <div className="flex items-center justify-end mt-4">

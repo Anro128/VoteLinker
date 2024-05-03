@@ -60,6 +60,11 @@ export default function Authenticated({ user, header, children }) {
 
                                     <Dropdown.Content>
                                         <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
+                                        
+                                        {user.role === "admin" ?(
+                                            <Dropdown.Link href={route('regist.view')}>View Registran</Dropdown.Link>
+                                        ):(<div></div>)}
+
                                         <Dropdown.Link href={route('logout')} method="post" as="button">
                                             Log Out
                                         </Dropdown.Link>

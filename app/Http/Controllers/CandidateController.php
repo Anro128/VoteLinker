@@ -19,6 +19,7 @@ class CandidateController extends Controller
             'elections' =>$elections
         ]);
     }
+    
     public function store(Request $request): RedirectResponse{
         $validated = $request->validate([
             'election_id' => 'required|integer',
@@ -27,7 +28,7 @@ class CandidateController extends Controller
             'DeputyChairman' => 'required|string',
             'Vision' => 'required|string',
             'Mision' => 'required|string',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',  // Validasi foto
+            'photo' => 'image|mimes:jpeg,png,jpg|max:2048',  // Validasi foto
         ]);
 
         // Menangani unggahan foto (jika ada)

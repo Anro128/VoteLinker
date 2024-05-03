@@ -24,9 +24,10 @@ export default function index({ auth, elections }) {
                         <ul>
                             {elections.map((election) => (
                                 <li key={election.id}>
-                                    <li>{election.Title}</li>
-                                    <li>{election.Description}</li>
-                                    <li>{election.Scope}</li>
+                                    <li>Title: {election.Title}</li>
+                                    <li>Desc: {election.Description}</li>
+                                    <li>Scope: {election.Scope}</li>
+                                    <li>Jumlah pemilih terdaftar: {election.TotalVoter}</li>
                                     <a href={route('election.detail', {id:election.id})}>DETAIL</a>
                                 </li>
                             ))}

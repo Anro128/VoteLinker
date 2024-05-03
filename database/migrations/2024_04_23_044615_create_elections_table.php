@@ -19,6 +19,7 @@ return new class extends Migration
             $table->boolean('IsPublicResult')->default(False);
             $table->json('Scope');
             $table->json('ListFinishVoting');
+            $table->integer('TotalVoter');
             $table->json('Result');
             $table->timestamps();
         });

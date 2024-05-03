@@ -32,6 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/election/vote', [ElectionController::class, 'vote'])->name('election.vote');
     Route::get('/election', [ElectionController::class, 'index'])->name('election.index');
     Route::get('/election/{id}', [ElectionController::class, 'detail'])->name('election.detail');
+    Route::get('/election/edit/', [ElectionController::class, 'detail'])->name('election.edit');
 });
 
 Route::middleware('auth')->group(function () {

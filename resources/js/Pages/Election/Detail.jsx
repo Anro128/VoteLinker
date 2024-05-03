@@ -18,8 +18,6 @@ export default function ElectionDetails({ auth, election, candidates, finish }) 
         setData('idCandidate', candidateId);
     };
 
-    
-
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -31,15 +29,16 @@ export default function ElectionDetails({ auth, election, candidates, finish }) 
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">DETAIL ELECTION</div>
-                        <div className="p-6 text-gray-900">{election.Title}</div>
-                        <div className="p-6 text-gray-900">{election.Description}</div>
-                        <div className="p-6 text-gray-900">{election.Result}</div>
+                        <div className="p-6 text-gray-900">Title: {election.Title}</div>
+                        <div className="p-6 text-gray-900">Desc: {election.Description}</div>
+                        <div className="p-6 text-gray-900">Result: {election.Result}</div>
                         <div className="p-6 text-gray-900">{election.Scope}</div>
+                        <div className="p-6 text-gray-900">Pemilih Terdaftar: {election.TotalVoter}</div>
 
                         {auth.user.role === "admin" ?(
                             <div>
                             <a href={route('election.edit')}>Edit Election</a>
-                            <a href={route('candidate.add')}>Tambah Candidate</a>
+                            <a href={route('candidate.add')}>  Tambah Candidate</a>
                             </div>
                         ):(<div></div>)}
 
