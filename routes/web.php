@@ -27,17 +27,21 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/election/add', [ElectionController::class, 'add'])->name('election.add');
-    Route::post('/election/add', [ElectionController::class, 'store'])->name('election.store');
     Route::post('/election/vote', [ElectionController::class, 'vote'])->name('election.vote');
     Route::get('/election', [ElectionController::class, 'index'])->name('election.index');
     Route::get('/election/{id}', [ElectionController::class, 'detail'])->name('election.detail');
-    Route::get('/election/edit/', [ElectionController::class, 'detail'])->name('election.edit');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth', \App\Http\Middleware\AdminOnly::class)->group(function () {
     Route::get('/candidate/add', [CandidateController::class, 'add'])->name('candidate.add');
     Route::post('/candidate/add', [CandidateController::class, 'store'])->name('candidate.store');
+    Route::get('/candidate/edit/{id}', [CandidateController::class, 'edit'])->name('candidate.edit');
+    Route::post('/candidate/edit/{id}', [CandidateController::class, 'update'])->name('candidate.update');
+
+    Route::get('/election/add', [ElectionController::class, 'add'])->name('election.add');
+    Route::post('/election/add', [ElectionController::class, 'store'])->name('election.store');
+    Route::get('/election/edit/{id}', [ElectionController::class, 'edit'])->name('election.edit');
+    Route::post('/election/edit/{id}', [ElectionController::class, 'update'])->name('election.update');
 });
 
 require __DIR__.'/auth.php';

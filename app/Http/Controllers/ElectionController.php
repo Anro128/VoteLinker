@@ -54,6 +54,27 @@ class ElectionController extends Controller
         return Inertia::render('Election/Add');
     }
 
+    public function edit($id){
+        $election = Election::find($id);
+        return Inertia::render('Election/Edit',[
+            'election' =>$election
+        ]);
+    }
+
+    public function update(Request $request, $id){
+        // return dd($request);
+        $election = Election::find($id);
+
+        $election->update([
+            'Title' => $request->title,
+            'Description' => $request->description,
+            'Scope' => $request->scope,
+            'IsOpen' =>$request->isopen,
+            'IsPublicResult' => $request-> ispublic
+        ]);
+        return Redirect::route('election.detail', ['id' => $id]);
+    }
+
     public function store(Request $request): RedirectResponse{
         $result = array_fill(0,$request->jumcalon + 1, 0);
         $resultss = implode(",", $result);
@@ -91,7 +112,12 @@ class ElectionController extends Controller
         $candidate= $election->candidates;
 
         // cek udah vote apa belum
-        $udh= Str::contains($election->ListFinishVoting,$nim);
+        $acctovote= Str::contains($election->ListFinishVoting,$nim);
+        $acctovote = !$acctovote;
+
+
+        //cek masih buka atau tutup
+        $acctovote &= $election->IsOpen;
        
         //ngecek akses
         $ret=false;
@@ -107,12 +133,12 @@ class ElectionController extends Controller
             return back();
         }
         
-        // return dd($election, $candidate);
+        // return dd($acctovote);
 
         return Inertia::render('Election/Detail',[
             'election' =>$election,
             'candidates'=>$candidate,
-            'finish' => $udh
+            'acctovote' => $acctovote
         ]);
     }
 
@@ -124,7 +150,7 @@ class ElectionController extends Controller
         // cek udah vote apa belum
         $udh= Str::contains($election->ListFinishVoting,$nim);
 
-        if($udh) return back();
+        if($udh ||  !$election->IsOpen) return back();
 
 
         $res = $election->Result;

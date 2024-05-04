@@ -3,14 +3,18 @@ import { useForm } from '@inertiajs/react';
 import PrimaryButton from '@/Components/PrimaryButton';
 import { Head } from '@inertiajs/react';
 
-export default function ElectionDetails({ auth, election, candidates, finish }) {
+export default function ElectionDetails({ auth, election, candidates, acctovote }) {
     const { data, setData, post, processing, errors } = useForm({
         idElection: election.id,
         idCandidate: ''
     });
 
     const submitVote = () => {
-        post(route('election.vote'));
+        const isConfirmed = window.confirm("Are you sure you want to submit your vote?");
+        
+        if (isConfirmed) {
+            post(route('election.vote')); 
+        }
     };
 
     const handleVote = (candidateId) => {
@@ -37,7 +41,7 @@ export default function ElectionDetails({ auth, election, candidates, finish }) 
 
                         {auth.user.role === "admin" ?(
                             <div>
-                            <a href={route('election.edit')}>Edit Election</a>
+                            <a href={route('election.edit', {id:election.id})}>Edit Election</a>
                             <a href={route('candidate.add')}>  Tambah Candidate</a>
                             </div>
                         ):(<div></div>)}
@@ -60,7 +64,7 @@ export default function ElectionDetails({ auth, election, candidates, finish }) 
                                     <div>{candidate.Vision}</div>
                                     <div>{candidate.Mision}</div>
 
-                                    {finish === false ?(
+                                    {(acctovote && auth.user.role === "voter") ?(
                                     <PrimaryButton
                                         onClick={() => {
                                             handleVote(candidate.SerialNumber);
@@ -70,11 +74,17 @@ export default function ElectionDetails({ auth, election, candidates, finish }) 
                                     </PrimaryButton>
                                     ):(<div></div>)}
 
+                                    {auth.user.role === "admin" ?(
+                                        <div>
+                                        <a href={route('candidate.edit', {id: candidate.id})}> EDIT Candidate</a>
+                                        </div>
+                                    ):(<div></div>)}
+
                                 </li>
                             ))}
                         </ul>
 
-                        {finish === false ?(
+                        {(acctovote && auth.user.role === "voter") ?(
                             <PrimaryButton onClick={submitVote} disabled={processing}>
                                 Submit Vote
                             </PrimaryButton>
