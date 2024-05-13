@@ -30,8 +30,10 @@ export default function Login({ status, canResetPassword }) {
     return (
         <GuestLayout>
             <Head title="Log in" />
+            
 
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
+            
 
             <form onSubmit={submit}>
                 <div>
@@ -79,6 +81,12 @@ export default function Login({ status, canResetPassword }) {
                 </div>
 
                 <div className="flex items-center justify-end mt-4">
+                    <Link
+                        href={route('register')}
+                        className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    >
+                        Create an Account
+                    </Link>
 
                     <PrimaryButton className="ms-4" disabled={processing}>
                         Log in

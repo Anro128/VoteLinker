@@ -5,6 +5,7 @@ import Footer from '@/Components/Footer'
 
 export default function Guest({ children }) {
     return (
+    <>    
         <div className='min-h-[900px] bg-[#183459]'> 
             <div className="min-h-[900px] flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-[url('/assets/background.svg')]">
                 <div>
@@ -19,6 +20,6 @@ export default function Guest({ children }) {
             </div>
             <Footer />
         </div>
-        
+    </>    
     );
 }
