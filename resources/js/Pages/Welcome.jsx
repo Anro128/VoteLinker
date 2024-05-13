@@ -15,8 +15,8 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
             <div className="text-black/50 dark:bg-[#183459] dark:text-white/50 overflow-hidden" >
                 <div className="'relative min-h-screen flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
                     <div className="relative w-full">
-                        <header className="flex items-center py-2 bg-[#282D56] justify-between w-full">
-                            <div className="flex lg:justify-center lg:col-start-2">
+                        <header className="flex items-center py-2 bg-[#282D56] justify-between w-full pl-20 pr-20">
+                            <div className="flex lg:justify-center lg:col-start-2 w-[150px]">
                                 <img src="assets/votelinker_logo.png"></img>
                             </div>
                             <nav className="flex justify-between">
@@ -46,10 +46,13 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                             </nav>
                         </header>
                         <main className='overflow-hidden'>
-                            <div className='min-h-[800px] flex flex-col justify-center items-center gap-5'>
+                            <div className="min-h-[900px] flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-[url('/assets/background.svg')]">
                                 <h1 className='text-white text-5xl font-bold items-center'>VoteLinker - “Your Voice, Your Choice!”</h1>
                                 <p className='font-italic'>Give your voice for an increasingly powerful IPB!</p> 
-                                <button className='mt-10 font-sans bg-[#F08200] p-3 text-white rounded-md hover:bg-white'>LET'S GET STARTED</button>   
+                                <Link href={route('register')}>
+                                    <button className='mt-10 font-sans bg-[#F08200] p-3 text-white rounded-md transition duration-75 ease-in-out 
+                                                    hover:bg-[#ffbf70] hover:scale-110'>LET'S GET STARTED</button>
+                                </Link>   
                             </div>
                         </main>
                         <footer>
