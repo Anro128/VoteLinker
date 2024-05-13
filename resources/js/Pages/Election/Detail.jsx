@@ -42,7 +42,7 @@ export default function ElectionDetails({ auth, election, candidates, acctovote 
                         {auth.user.role === "admin" ?(
                             <div>
                             <a href={route('election.edit', {id:election.id})}>Edit Election</a>
-                            <a href={route('candidate.add')}>  Tambah Candidate</a>
+                            <a href={route('candidate.add', {id: election.id})}>  Tambah Candidate</a>
                             </div>
                         ):(<div></div>)}
 

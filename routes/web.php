@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth', \App\Http\Middleware\AdminOnly::class)->group(function () {
-    Route::get('/candidate/add', [CandidateController::class, 'add'])->name('candidate.add');
+    Route::get('/candidate/add/{id}', [CandidateController::class, 'add'])->name('candidate.add');
     Route::post('/candidate/add', [CandidateController::class, 'store'])->name('candidate.store');
     Route::get('/candidate/edit/{id}', [CandidateController::class, 'edit'])->name('candidate.edit');
     Route::post('/candidate/edit/{id}', [CandidateController::class, 'update'])->name('candidate.update');

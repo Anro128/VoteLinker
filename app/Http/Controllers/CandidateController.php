@@ -13,10 +13,10 @@ use Inertia\Response;
 
 class CandidateController extends Controller
 {
-    public function add(){
-        $elections = Election::All();
+    public function add($id){
+        $election = Election::find($id);
         return Inertia::render('Election/AddCandidate',[
-            'elections' =>$elections
+            'election' =>$election
         ]);
     }
 

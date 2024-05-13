@@ -5,9 +5,9 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 
-export default function Add({ auth, elections }) {
+export default function Add({ auth, election }) {
     const { data, setData, post, processing, errors } = useForm({
-        election_id:'',
+        election_id: election.id,
         SerialNumber:'',
         Chairman:'',
         DeputyChairman:'',
@@ -26,26 +26,12 @@ export default function Add({ auth, elections }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Add Candidate</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Add Candidate {election.Title}</h2>}
         >
-            <Head title="Add Candidate" />
+            <Head title="Add Candidate"/>
+            
             
             <form onSubmit={submit}>
-
-                <div>
-                    <label for="election_id">Election</label> 
-                    <select 
-                    id="election_id" 
-                    name="election_id" 
-                    value={data.election_id}
-                    onChange={(e) => setData('election_id', e.target.value)}
-                    required>
-                    <option value="" >Select Election</option>
-                        {elections.map((election) => (
-                            <option key={election.id} value={election.id} >{election.Title}</option>
-                        ))}
-                    </select>              
-                </div>
 
                 <div>
                     <InputLabel htmlFor="SerialNumber" value="SerialNumber" />
