@@ -109,7 +109,7 @@ class ElectionController extends Controller
     public function detail($id){
         $nim = auth::user()->NIM;
         $election = Election::find($id);
-        $candidate= $election->candidates;
+        // return dd($election);
 
         // cek udah vote apa belum
         $acctovote= Str::contains($election->ListFinishVoting,$nim);
@@ -137,7 +137,7 @@ class ElectionController extends Controller
 
         return Inertia::render('Election/Detail',[
             'election' =>$election,
-            'candidates'=>$candidate,
+            'candidates'=>$election->candidates,
             'acctovote' => $acctovote
         ]);
     }
