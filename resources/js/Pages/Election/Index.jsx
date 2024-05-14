@@ -7,7 +7,6 @@ export default function index({ auth, elections }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Election</h2>}
         >
             <Head title="Election" />
 
