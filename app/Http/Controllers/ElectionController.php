@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 use App\Models\Election;
-use App\Models\Candidates;
+use App\Models\Candidate;
 use App\Models\User;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -172,5 +172,46 @@ class ElectionController extends Controller
         ]);
 
         return back();
+    }
+
+    public function result($id){
+        $election = Election::find($id);
+        $candidates = $election->candidates;
+        $pemilih=0;
+
+        $nim = auth::user()->NIM;
+        $isAccess=false;
+        $scop= $election->Scope;
+        $arrScope = explode(',', $scop);
+        for ($i = 0; $i < count($arrScope); $i++) {
+            if(Str::contains($nim, $arrScope[$i])){
+                $isAccess=true;
+            }
+        }
+
+        // return dd(!$election->IsPublicResult,!$isAccess, auth::user()->role != 'admin',  (!$election->IsPublicResult || !$isAccess) && auth::user()->role != 'admin');
+
+        if((!$election->IsPublicResult || !$isAccess) && auth::user()->role != 'admin'){
+            return back();
+        }
+
+        $res = $election->Result;
+        $arrRes = explode(',', $res);
+
+        foreach ($candidates as $candidate) {
+            $candidate['result']=$arrRes[$candidate->SerialNumber];
+            $pemilih += $arrRes[$candidate->SerialNumber];
+        }
+
+        $newCandidate = new Candidate();
+        $newCandidate->Chairman = "Tidak Memilih";
+        $newCandidate->result = $election->TotalVoter - $pemilih;
+
+        $candidates->add($newCandidate);
+
+        return Inertia::render('Election/Results',[
+            'election' =>$election,
+            'candidates'=>$candidates
+        ]);
     }
 }

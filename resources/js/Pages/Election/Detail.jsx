@@ -35,9 +35,14 @@ export default function ElectionDetails({ auth, election, candidates, acctovote 
                         <div className="p-6 text-gray-900">DETAIL ELECTION</div>
                         <div className="p-6 text-gray-900">Title: {election.Title}</div>
                         <div className="p-6 text-gray-900">Desc: {election.Description}</div>
-                        <div className="p-6 text-gray-900">Result: {election.Result}</div>
                         <div className="p-6 text-gray-900">{election.Scope}</div>
                         <div className="p-6 text-gray-900">Pemilih Terdaftar: {election.TotalVoter}</div>
+
+                        {election.IsPublicResult || auth.user.role === "admin"?(
+                            <div>
+                            <a href={route('election.result', {id:election.id})}>Lihat Hasil</a>
+                            </div>
+                        ):(<div></div>)}
 
                         {auth.user.role === "admin" ?(
                             <div>
