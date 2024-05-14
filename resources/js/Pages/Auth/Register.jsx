@@ -69,7 +69,7 @@ export default function Register() {
                     <InputError message={errors.email} className="mt-2" />
                 </div>
 
-                <div>
+                <div className="mt-4">
                     <InputLabel htmlFor="NIM" value="NIM" />
 
                     <TextInput
@@ -86,8 +86,8 @@ export default function Register() {
                     <InputError message={errors.NIM} className="mt-2" />
                 </div>
 
-                <div>
-                    <InputLabel htmlFor="fakultas" value="fakultas" />
+                <div className="mt-4">
+                    <InputLabel htmlFor="fakultas" value="Fakultas" />
 
                     <TextInput
                         id="fakultas"
@@ -103,8 +103,8 @@ export default function Register() {
                     <InputError message={errors.fakultas} className="mt-2" />
                 </div>
 
-                <div>
-                    <InputLabel htmlFor="departemen" value="departemen" />
+                <div className="mt-4">
+                    <InputLabel htmlFor="departemen" value="Departemen" />
 
                     <TextInput
                         id="departemen"
@@ -154,7 +154,7 @@ export default function Register() {
                     <InputError message={errors.password_confirmation} className="mt-2" />
                 </div>
                 
-                <div>
+                <div className="mt-4">
                     <InputLabel htmlFor="KTM" value="KTM" />
                     <input
                         type="file"
