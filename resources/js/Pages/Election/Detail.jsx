@@ -25,16 +25,14 @@ export default function ElectionDetails({ auth, election, candidates, acctovote 
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Election</h2>}
         >
             <Head title="Election" />
-
-            <div className="py-12">
+            <h2 className="font-semibold text-3xl text-gray-800 leading-tight flex justify-center mt-10">Detail Election</h2>
+            <div className="py-10">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <div className="p-6 text-gray-900">DETAIL ELECTION</div>
-                        <div className="p-6 text-gray-900">Title: {election.Title}</div>
-                        <div className="p-6 text-gray-900">Desc: {election.Description}</div>
+                    <div className="overflow-hidden sm:rounded-lg flex flex-col justify-center items-center">
+                        <div className="text-gray-900 text-2xl font-extrabold">{election.Title}</div>
+                        <div className="text-gray-900">{election.Description}</div>
                         <div className="p-6 text-gray-900">{election.Scope}</div>
                         <div className="p-6 text-gray-900">Pemilih Terdaftar: {election.TotalVoter}</div>
 
@@ -93,7 +91,7 @@ export default function ElectionDetails({ auth, election, candidates, acctovote 
                             <PrimaryButton onClick={submitVote} disabled={processing}>
                                 Submit Vote
                             </PrimaryButton>
-                         ):(<div></div>)}
+                        ):(<div></div>)}
                     </div>
                 </div>
             </div>

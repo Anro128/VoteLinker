@@ -7,15 +7,7 @@ export default function Dashboard({ auth }) {
             user={auth.user}
         >
             <Head title="Dashboard" />
-            <div className="pt-12 mx-[20vh]">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        {/* disini cok */}
-                        <div className="p-6 text-gray-900">
-                        
-                        You're logged in!</div>
-                    </div>
-                </div>
+            <div className="pt-12 mx-[20vh]">   
                 <div className='md:mx-0 flex justify-center mt-10 flex-col m-[100px] mb-0 items-center'>
                     <div className='flex justify-center flex-col items-center gap-2'>
                         <h2 className='text-4xl'>About VoteLinker</h2>

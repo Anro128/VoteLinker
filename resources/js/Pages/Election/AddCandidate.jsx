@@ -26,12 +26,11 @@ export default function Add({ auth, election }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Add Candidate {election.Title}</h2>}
         >
             <Head title="Add Candidate"/>
+            <h2 className="font-semibold text-3xl text-gray-800 leading-tight flex justify-center mt-10">Add Candidate {election.Title}</h2>
             
-            
-            <form onSubmit={submit}>
+            <form onSubmit={submit} className='mx-[100px] px-[45px] flex flex-col gap-5 h-[77vh] justify-center'>
 
                 <div>
                     <InputLabel htmlFor="SerialNumber" value="SerialNumber" />

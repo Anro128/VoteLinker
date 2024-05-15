@@ -21,11 +21,12 @@ export default function Add({ auth }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Election</h2>}
         >
             <Head title="Add Election" />
-            
-            <form onSubmit={submit}>
+
+            <h2 className="font-semibold text-3xl text-gray-800 leading-tight flex justify-center mt-10">Add New Election</h2>
+
+            <form onSubmit={submit} className='mx-[100px] px-[45px] flex flex-col gap-5 h-[77vh] justify-center'>
                 <div>
                     <InputLabel htmlFor="title" value="Title" />
 
@@ -61,7 +62,7 @@ export default function Add({ auth }) {
                 </div>
 
                 <div>
-                    <InputLabel htmlFor="scope" value="scope" />
+                    <InputLabel htmlFor="scope" value="Scope" />
 
                     <TextInput
                         id="scope"
@@ -78,7 +79,7 @@ export default function Add({ auth }) {
                 </div>
 
                 <div>
-                    <InputLabel htmlFor="jumcalon" value="Jumlah candidate" />
+                    <InputLabel htmlFor="jumcalon" value="Jumlah Candidate" />
 
                     <TextInput
                         id="jumcalon"
@@ -99,7 +100,7 @@ export default function Add({ auth }) {
                 <div className="flex items-center justify-end mt-4">
                     
 
-                    <PrimaryButton className="ms-4" disabled={processing}>
+                    <PrimaryButton className="ms-4 mb-5" disabled={processing}>
                         ADD
                     </PrimaryButton>
                 </div>

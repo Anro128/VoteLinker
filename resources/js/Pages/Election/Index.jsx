@@ -10,7 +10,7 @@ export default function index({ auth, elections }) {
         >
             <Head title="Election" />
 
-            <div className="py-12 h-[100vh]">
+            <div className="py-12 min-h-[85vh]">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="overflow-hidden sm:rounded-lg flex flex-col justify-center items-center">
                         <div className="p-6 text-gray-900 font-bold flex justify-center flex-col items-center text-2xl">
