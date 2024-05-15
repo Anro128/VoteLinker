@@ -7,7 +7,6 @@ export default function Dashboard({ auth }) {
             user={auth.user}
         >
             <Head title="Dashboard" />
-
             <div className="pt-12 mx-[20vh]">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
