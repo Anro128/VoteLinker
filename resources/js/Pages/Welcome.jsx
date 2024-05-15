@@ -12,7 +12,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
     return (
         <>
             <Head title="Welcome" />
-            <div className="text-black/50 dark:bg-[#183459] dark:text-white/50 overflow-hidden" >
+            <div className="text-black/50 bg-[#183459] dark:text-white/50 overflow-hidden" >
                 <div className="'relative min-h-screen flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
                     <div className="relative w-full">
                         <header className="flex items-center py-2 bg-[#282D56] justify-between w-full pl-20 pr-20">
@@ -48,7 +48,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                         <main className='overflow-hidden'>
                             <div className="min-h-[900px] flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-[url('/assets/background.svg')] bg-center bg-cover">
                                 <h1 className='text-white text-5xl font-bold items-center'>VoteLinker - “Your Voice, Your Choice!”</h1>
-                                <p className='font-italic'>Give your voice for an increasingly powerful IPB!</p> 
+                                <p className='font-italic text-slate-400'>Give your voice for an increasingly powerful IPB!</p> 
                                 <Link href={route('register')}>
                                     <button className='mt-10 font-sans bg-[#F08200] p-3 text-white rounded-md transition duration-75 ease-in-out 
                                                     hover:bg-[#ffbf70] hover:scale-110'>LET'S GET STARTED</button>
