@@ -17,16 +17,17 @@ export default function Dashboard({ auth }) {
                         You're logged in!</div>
                     </div>
                 </div>
-                <div className='flex justify-center mt-10 flex-col m-[100px] mb-0 items-center'>
+                <div className='md:mx-0 flex justify-center mt-10 flex-col m-[100px] mb-0 items-center'>
                     <div className='flex justify-center flex-col items-center gap-2'>
                         <h2 className='text-4xl'>About VoteLinker</h2>
                         <p>Revolutionazing online election since 2023</p>
                         <br></br>
                         <img src='/assets/Separator.png'></img>
                     </div>
-                    <div className='mx-10 justify-center items-center flex gap-5'>
+                    <div className='md:container mx-10 justify-center items-center flex gap-5
+                                    md:flex-col'>
                         <div>
-                            <img className='min-w-[500px]' src='/assets/using-laptop.jpg.png'></img>
+                            <img className='container md:min-w-[200px] max-w-[500px]' src='/assets/using-laptop.jpg.png'></img>
                         </div>
                         <div className='flex flex-col gap-5 text-justify'>
                             <p>VoteLinker is an election system that invites voters to record their votes and secret ballots electronically.</p>
@@ -37,9 +38,12 @@ export default function Dashboard({ auth }) {
                     </div>
                     <div className='flex flex-col justify-center items-center mt-10 bg-[#CFD8DC] p-5 w-screen gap-5'>
                         <div>
-                            <h1 className='text-4xl'>Our Clients</h1>
+                            <h1 className='container md:text-2xl lg:text-3xl xl:text-4xl'>Our Clients</h1>
                         </div>
-                        <div className='flex gap-10'>
+                        <div className='container flex gap-5 justify-center
+                                        lg:max-w-[60px]
+                                        xl:max-w-[100px] 
+                                        md:max-w-10'>
                             <img src='/assets/bemC1.png'></img>
                             <img src='/assets/bemC1.png'></img>
                             <img src='/assets/bemC1.png'></img>
