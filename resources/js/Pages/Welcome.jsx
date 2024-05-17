@@ -47,7 +47,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                         </header>
                         <main className='overflow-hidden'>
                             <div className="min-h-[900px] flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-[url('/assets/background.svg')] bg-center bg-cover">
-                                <h1 className='text-white text-5xl font-bold items-center'>VoteLinker - “Your Voice, Your Choice!”</h1>
+                                <h1 className='text-white text-5xl font-bold items-center justify-center text-center'>VoteLinker - “Your Voice, Your Choice!”</h1>
                                 <p className='font-italic text-slate-400'>Give your voice for an increasingly powerful IPB!</p> 
                                 <Link href={route('register')}>
                                     <button className='mt-10 font-sans bg-[#F08200] p-3 text-white rounded-md transition duration-75 ease-in-out 
