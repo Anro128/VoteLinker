@@ -10,7 +10,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
     };
 
     return (
-        <>
+        <>                  
             <Head title="Welcome" />
             <div className="text-black/50 bg-[#183459] dark:text-white/50 overflow-hidden" >
                 <div className="'relative min-h-screen flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">

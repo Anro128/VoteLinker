@@ -15,10 +15,10 @@ export default function index({ auth, elections }) {
                     <div className="overflow-hidden sm:rounded-lg flex flex-col justify-center items-center">
                         <div className="p-6 text-gray-900 font-bold flex justify-center flex-col items-center text-2xl">
                             AVAILABLE ELECTION
-                            <div className='mt-2 bg-[#F08200] p-2 rounded-md text-sm hover:scale-110 transition-all'>
+                            <div>
                                 {auth.user.role === "admin" ?(
-                                    <a href={route('election.add')}>ADD ELECTION</a>
-                                ):(<div></div>)}
+                                    <a className='mt-2 bg-[#F08200] p-2 rounded-md text-sm hover:scale-110 transition-all' href={route('election.add')}>ADD ELECTION</a>
+                                ):(<div className='hidden'></div>)}
                             </div>
                         </div>
                             
