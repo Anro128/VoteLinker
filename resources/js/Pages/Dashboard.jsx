@@ -32,21 +32,21 @@ export default function Dashboard({ auth }) {
                             <h1 className='container md:text-2xl lg:text-3xl xl:text-4xl'>Our Clients</h1>
                         </div>
                         <div className='container flex gap-5 justify-center
-                                        lg:max-w-[60px]
-                                        xl:max-w-[100px] 
+                                        lg:max-w-[70px]
+                                        xl:max-w-[95px] 
                                         md:max-w-10'>
                             <img src='/assets/bemC1.png'></img>
-                            <img src='/assets/bemC1.png'></img>
-                            <img src='/assets/bemC1.png'></img>
-                            <img src='/assets/bemC1.png'></img>
-                            <img src='/assets/bemC1.png'></img>
-                            <img src='/assets/bemC1.png'></img>
-                            <img src='/assets/bemC1.png'></img>
-                            <img src='/assets/bemC1.png'></img>
-                            <img src='/assets/bemC1.png'></img>
-                            <img src='/assets/bemC1.png'></img>
-                            <img src='/assets/bemC1.png'></img>
-                            <img src='/assets/bemC1.png'></img>
+                            <img src='/assets/logobemkm1.png'></img>
+                            <img src='/assets/bemJ1.png'></img>
+                            <img src='/assets/bemI1.png'></img>
+                            <img src='/assets/bemA1.png'></img>
+                            <img src='/assets/bemB1.png'></img>
+                            <img src='/assets/bemD1.png'></img>
+                            <img src='/assets/bemE1.png'></img>
+                            <img src='/assets/bemF1.png'></img>
+                            <img src='/assets/bemG1.png'></img>
+                            <img src='/assets/bemH1.png'></img>
+                            <img src='/assets/bemK1.png'></img>
                         </div>
                     </div>
                 </div>

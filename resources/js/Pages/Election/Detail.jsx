@@ -27,66 +27,71 @@ export default function ElectionDetails({ auth, election, candidates, acctovote 
             user={auth.user}
         >
             <Head title="Election" />
-            <h2 className="font-semibold text-3xl text-gray-800 leading-tight flex justify-center mt-10">Detail Election</h2>
             <div className="py-10">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="overflow-hidden sm:rounded-lg flex flex-col justify-center items-center">
-                        <div className="text-gray-900 text-2xl font-extrabold">{election.Title}</div>
-                        <div className="text-gray-900">{election.Description}</div>
-                        <div className="p-6 text-gray-900">{election.Scope}</div>
-                        <div className="p-6 text-gray-900">Pemilih Terdaftar: {election.TotalVoter}</div>
-
-                        {election.IsPublicResult || auth.user.role === "admin"?(
+                    <div className="overflow-hidden sm:rounded-lg flex flex-col justify-center items-center border-solid border-2 border-black">
+                        <div className="bg-slate-300 flex w-full justify-between">
                             <div>
-                            <a href={route('election.result', {id:election.id})}>Lihat Hasil</a>
+                                {election.IsPublicResult || auth.user.role === "admin"?(
+                                    <div className='font-bold flex flex-col     '>
+                                        <div className="text-gray-900">{election.Scope}</div>
+                                        <div className="text-gray-900">Pemilih Terdaftar: {election.TotalVoter}</div>
+                                        <a href={route('election.result', {id:election.id})}>Lihat Hasil</a>
+                                    </div>
+                                ):(<div className='hidden'></div>)}
                             </div>
-                        ):(<div></div>)}
-
-                        {auth.user.role === "admin" ?(
-                            <div>
-                            <a href={route('election.edit', {id:election.id})}>Edit Election</a>
-                            <a href={route('candidate.add', {id: election.id})}>  Tambah Candidate</a>
+                            <div className='flex flex-col justify-center items-center'>
+                                <div className="text-gray-900 text-4xl font-extrabold">{election.Title}</div>
+                                <div className="text-gray-900 text-xl font-bold">{election.Description}</div>
                             </div>
-                        ):(<div></div>)}
+                            <div className='flex '>
+                                {auth.user.role === "admin" ?(
+                                    <div className='font-bold flex flex-col'>
+                                        <a href={route('election.edit', {id:election.id})}>Edit Election</a>
+                                        <a href={route('candidate.add', {id: election.id})}>Tambah Candidate</a>
+                                    </div>
+                                ):(<div className='hidden'></div>)}
+                            </div>
+                        </div>
+                        <div className='min-h-[70vh]'>
+                            <ul className='grid grid-cols-3 gap-3'>
+                                {candidates.map((candidate) => (
+                                    <li className='font-bold bg-[#76a8fd] m-2' key={candidate.id}>
+                                        {candidate.Photo && (
+                                            <div>
+                                                <img
+                                                    src={`/storage/${candidate.Photo}`} 
+                                                    alt={`${candidate.Chairman}`} 
+                                                    className="w-24 h-24 object-cover" 
+                                                />
+                                            </div>
+                                        )}
+                                        <div>{candidate.SerialNumber}</div>
+                                        <div>{candidate.Chairman}</div>
+                                        <div>{candidate.DeputyChairman}</div>
+                                        <div>{candidate.Vision}</div>
+                                        <div>{candidate.Mision}</div>
 
-                        <ul>
-                            {candidates.map((candidate) => (
-                                <li key={candidate.id}>
-                                    {candidate.Photo && (
-                                        <div>
-                                            <img
-                                                src={`/storage/${candidate.Photo}`} 
-                                                alt={`${candidate.Chairman}`} 
-                                                className="w-24 h-24 object-cover" 
-                                            />
-                                        </div>
-                                    )}
-                                    <div>{candidate.SerialNumber}</div>
-                                    <div>{candidate.Chairman}</div>
-                                    <div>{candidate.DeputyChairman}</div>
-                                    <div>{candidate.Vision}</div>
-                                    <div>{candidate.Mision}</div>
+                                        {(acctovote && auth.user.role === "voter") ?(
+                                        <PrimaryButton
+                                            onClick={() => {
+                                                handleVote(candidate.SerialNumber);
+                                            }}
+                                        >
+                                            Vote
+                                        </PrimaryButton>
+                                        ):(<div></div>)}
 
-                                    {(acctovote && auth.user.role === "voter") ?(
-                                    <PrimaryButton
-                                        onClick={() => {
-                                            handleVote(candidate.SerialNumber);
-                                        }}
-                                    >
-                                        Vote
-                                    </PrimaryButton>
-                                    ):(<div></div>)}
+                                        {auth.user.role === "admin" ?(
+                                            <div>
+                                            <a href={route('candidate.edit', {id: candidate.id})}> EDIT Candidate</a>
+                                            </div>
+                                        ):(<div></div>)}
 
-                                    {auth.user.role === "admin" ?(
-                                        <div>
-                                        <a href={route('candidate.edit', {id: candidate.id})}> EDIT Candidate</a>
-                                        </div>
-                                    ):(<div></div>)}
-
-                                </li>
-                            ))}
-                        </ul>
-
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                         {(acctovote && auth.user.role === "voter") ?(
                             <PrimaryButton onClick={submitVote} disabled={processing}>
                                 Submit Vote
