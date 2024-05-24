@@ -59,9 +59,7 @@ export default function Authenticated({ user, header, children }) {
                                         </span>
                                     </Dropdown.Trigger>
 
-                                    <Dropdown.Content>
-                                        <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
-                                        
+                                    <Dropdown.Content>                                        
                                         {user.role === "admin" ?(
                                             <Dropdown.Link href={route('regist.view')}>View Registran</Dropdown.Link>
                                         ):(<div></div>)}
@@ -129,7 +127,7 @@ export default function Authenticated({ user, header, children }) {
                 </header>
             )}
 
-            <main>{children}</main>
+            <main className='min-h-[90vh]'>{children}</main>
 
             <footer>
                 <Footer />
