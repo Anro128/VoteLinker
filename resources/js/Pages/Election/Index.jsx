@@ -42,8 +42,10 @@ export default function index({ auth, elections }) {
                                         <li>{election.Description}</li>
                                         <a href={route('election.detail', {id:election.id})}
                                         className='mt-2 p-1 px-2 w-fit bg-[#F08200] rounded-md'>DETAIL</a>
-                                        <button onClick={() => handleDelete(election.id)}
-                                        className='mt-2 p-1 px-2 w-fit bg-[#E10000] rounded-md'>DELETE</button>
+                                        {auth.user.role === "admin" && (
+                                            <button onClick={() => handleDelete(election.id)}
+                                            className='mt-2 p-1 px-2 w-fit bg-[#E10000] rounded-md'>DELETE</button>
+                                        )}
                                     </li>
                                 ))}
                             </ul>
