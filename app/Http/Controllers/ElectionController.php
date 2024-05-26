@@ -56,6 +56,9 @@ class ElectionController extends Controller
 
     public function edit($id){
         $election = Election::find($id);
+        if($election == null){
+            return back();
+        }
         return Inertia::render('Election/Edit',[
             'election' =>$election
         ]);
@@ -64,6 +67,9 @@ class ElectionController extends Controller
     public function update(Request $request, $id){
         // return dd($request);
         $election = Election::find($id);
+        if($election == null){
+            return back();
+        }
 
         $election->update([
             'Title' => $request->title,
@@ -73,6 +79,16 @@ class ElectionController extends Controller
             'IsPublicResult' => $request-> ispublic
         ]);
         return Redirect::route('election.detail', ['id' => $id]);
+    }
+
+    public function delete($id){
+        $election = Election::find($id);
+        if ($election) {
+            $election->delete();
+            return response()->json(['message' => 'Election deleted successfully'], 200);
+        } else {
+            return response()->json(['message' => 'Election not found'], 404);
+        }
     }
 
     public function store(Request $request): RedirectResponse{
@@ -110,6 +126,9 @@ class ElectionController extends Controller
         $nim = auth::user()->NIM;
         $election = Election::find($id);
         // return dd($election);
+        if($election == null){
+            return back();
+        }
 
         // cek udah vote apa belum
         $acctovote= Str::contains($election->ListFinishVoting,$nim);
@@ -146,7 +165,9 @@ class ElectionController extends Controller
     public function vote(Request $request): RedirectResponse{
         $nim = auth::user()->NIM;
         $election = Election::find($request->idElection);
-
+        if($election == null){
+            return back();
+        }
         // cek udah vote apa belum
         $udh= Str::contains($election->ListFinishVoting,$nim);
 
@@ -154,7 +175,6 @@ class ElectionController extends Controller
 
 
         $res = $election->Result;
-
         $arrRes = explode(',', $res);
         $arrRes[$request->idCandidate] +=1;
 
@@ -176,6 +196,10 @@ class ElectionController extends Controller
 
     public function result($id){
         $election = Election::find($id);
+        if($election == null){
+            return back();
+        }
+
         $candidates = $election->candidates;
         $pemilih=0;
 

@@ -20,6 +20,29 @@ class CandidateController extends Controller
         ]);
     }
 
+    public function delete($id){
+        $candidate = Candidate::find($id);
+        $election = $candidate->election;
+
+        //reset result
+        $res = $election->Result;
+        $arrRes = explode(',', $res);
+        foreach ($arrRes as $key => $value) {
+            $arrRes[$key] = 0;
+        }
+        $rest = implode(",", $arrRes);
+        $election->update([
+            'Result'=> $rest
+        ]);
+
+        if ($candidate) {
+            $candidate->delete();
+            return response()->json(['message' => 'Election deleted successfully'], 200);
+        } else {
+            return response()->json(['message' => 'Election not found'], 404);
+        }
+    }
+
     public function store(Request $request): RedirectResponse{
         $validated = $request->validate([
             'election_id' => 'required|integer',

@@ -3,6 +3,8 @@ import { useForm } from '@inertiajs/react';
 import PrimaryButton from '@/Components/PrimaryButton';
 import { Head } from '@inertiajs/react';
 import { useState } from 'react';
+import React from 'react';
+import axios from 'axios';
 
 export default function ElectionDetails({ auth, election, candidates, acctovote }) {
     const { data, setData, post, processing, errors } = useForm({
@@ -33,6 +35,24 @@ export default function ElectionDetails({ auth, election, candidates, acctovote 
 
     const handleCloseModal = () => {
         setIsModalOpen(false);
+    };
+
+    const handleDelete = async (id) => {
+        if (confirm('Apakah kamu yakin menghapus candidate ini? hasil election akan tereset')) {
+            try {
+                await axios.delete(`/candidate/delete/${id}`, {
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Authorization': `Bearer ${auth.user.token}`,
+                    },
+                });
+                alert('Candidate berhasil dihapus');
+                window.location.reload();
+            } catch (error) {
+                console.error('error woy!', error);
+                alert('Gagal menghapus candidate.');
+            }
+        }
     };
 
     return (
@@ -100,6 +120,13 @@ export default function ElectionDetails({ auth, election, candidates, acctovote 
                                                 <a className='ml-2 bg-white text-blue-600 border border-blue-600 px-4 py-2 rounded-md hover:bg-blue-50' href={route('candidate.edit', {id: candidate.id})}>
                                                     Edit Candidate
                                                 </a>
+                                            )}
+                                            {auth.user.role === "admin" && (
+                                                <button 
+                                                    onClick={() => handleDelete(candidate.id)} 
+                                                    className='mt-2 p-1 px-2 w-fit bg-[#E10000] rounded-md text-white'>
+                                                    DELETE
+                                                </button>
                                             )}
                                         </div>
                                         {(acctovote && auth.user.role === "voter") && (

@@ -38,11 +38,13 @@ Route::middleware('auth', \App\Http\Middleware\AdminOnly::class)->group(function
     Route::post('/candidate/add', [CandidateController::class, 'store'])->name('candidate.store');
     Route::get('/candidate/edit/{id}', [CandidateController::class, 'edit'])->name('candidate.edit');
     Route::post('/candidate/edit/{id}', [CandidateController::class, 'update'])->name('candidate.update');
+    Route::delete('/candidate/delete/{id}', [CandidateController::class, 'delete'])->name('candidate.delete');
 
     Route::get('/election/add', [ElectionController::class, 'add'])->name('election.add');
     Route::post('/election/add', [ElectionController::class, 'store'])->name('election.store');
     Route::get('/election/edit/{id}', [ElectionController::class, 'edit'])->name('election.edit');
     Route::post('/election/edit/{id}', [ElectionController::class, 'update'])->name('election.update');
+    Route::delete('/election/delete/{id}', [ElectionController::class, 'delete'])->name('election.delete');
 });
 
 require __DIR__.'/auth.php';
