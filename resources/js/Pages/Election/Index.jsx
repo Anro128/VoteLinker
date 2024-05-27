@@ -37,15 +37,17 @@ export default function index({ auth, elections }) {
                         <div className='px-6 flex flex-col justify-center items-center w-full'>
                             <ul className='flex flex-col gap-4 w-full justify-center'>
                                 {elections.map((election) => (
-                                    <li key={election.id} className='bg-[#282D56] rounded-md p-2 flex flex-col max-h-[135px] text-white'>
+                                    <li key={election.id} className='bg-[#282D56] rounded-md p-2 flex flex-col max-h-[160px] text-white'>
                                         <li className='font-black text-xl'>{election.Title}</li>
                                         <li>{election.Description}</li>
-                                        <a href={route('election.detail', {id:election.id})}
-                                        className='mt-2 p-1 px-2 w-fit bg-[#F08200] rounded-md'>DETAIL</a>
-                                        {auth.user.role === "admin" && (
-                                            <button onClick={() => handleDelete(election.id)}
-                                            className='mt-2 p-1 px-2 w-fit bg-[#E10000] rounded-md'>DELETE</button>
-                                        )}
+                                        <div className='flex gap-3'>
+                                            <a href={route('election.detail', {id:election.id})}
+                                            className='mt-2 p-1 px-2 w-[80px] bg-[#F08200] text-center rounded-md'>DETAIL</a>
+                                            {auth.user.role === "admin" && (
+                                                <button onClick={() => handleDelete(election.id)}
+                                                className='mt-2 p-1 px-2 w-[80px] text-center bg-[#E10000] rounded-md'>DELETE</button>
+                                            )}
+                                        </div>
                                     </li>
                                 ))}
                             </ul>

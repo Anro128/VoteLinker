@@ -109,18 +109,20 @@ export default function ElectionDetails({ auth, election, candidates, acctovote 
                                                 <div>Wakil Ketua: {candidate.DeputyChairman}</div>
                                             </div>
                                         </div>
-                                        <div className='flex justify-center'>
-                                            <button
-                                                className='bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700'
-                                                onClick={() => handleOpenModal(candidate.Vision, candidate.Mision)}
-                                            >
-                                                Lihat Visi & Misi
-                                            </button>
-                                            {auth.user.role === "admin" && (
-                                                <a className='ml-2 bg-white text-blue-600 border border-blue-600 px-4 py-2 rounded-md hover:bg-blue-50' href={route('candidate.edit', {id: candidate.id})}>
-                                                    Edit Candidate
-                                                </a>
-                                            )}
+                                        <div className='flex flex-col items-center'>
+                                            <div className='flex justify-center'>
+                                                <button
+                                                    className='bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700'
+                                                    onClick={() => handleOpenModal(candidate.Vision, candidate.Mision)}
+                                                >
+                                                    Lihat Visi & Misi
+                                                </button>
+                                                {auth.user.role === "admin" && (
+                                                    <a className='ml-2 bg-white text-blue-600 border border-blue-600 px-4 py-2 rounded-md hover:bg-blue-50' href={route('candidate.edit', {id: candidate.id})}>
+                                                        Edit Candidate
+                                                    </a>
+                                                )}
+                                            </div>
                                             {auth.user.role === "admin" && (
                                                 <button 
                                                     onClick={() => handleDelete(candidate.id)} 
