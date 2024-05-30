@@ -14,10 +14,11 @@ import { Square3Stack3DIcon } from "@heroicons/react/24/outline";
 export default function index({ auth, election, candidates, arrRes, noUrut, color }) {
     const chartConfigBar = {
         type: "bar",
-        height: 240,
+        height: 300,
+        width: 300,
         series: [
             {
-                name: "Sales",
+                name: "Votes",
                 data: arrRes,
             },
         ],
@@ -36,7 +37,7 @@ export default function index({ auth, election, candidates, arrRes, noUrut, colo
             colors: ["#020617"],
             plotOptions: {
                 bar: {
-                    columnWidth: "40%",
+                    columnWidth: "50%",
                     borderRadius: 2,
             },
             },
@@ -92,8 +93,8 @@ export default function index({ auth, election, candidates, arrRes, noUrut, colo
     
     const chartConfigPie = {
         type: "pie",
-        width: 280,
-        height: 280,
+        width: 300,
+        height: 300,
         series: arrRes,
         options: {
             chart: {

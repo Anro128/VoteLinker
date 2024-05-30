@@ -134,7 +134,7 @@ export default function ElectionDetails({ auth, election, candidates, acctovote 
                                             </button>
                                         )}
                                     </div>
-                                    {(acctovote && auth.user.role === "voter") && (
+                                    {(acctovote && auth.user.role === "voter") ? (
                                         <div className='flex justify-center mt-2'>
                                             <PrimaryButton
                                                 onClick={() => handleVote(candidate.SerialNumber)}
@@ -142,17 +142,17 @@ export default function ElectionDetails({ auth, election, candidates, acctovote 
                                                 Vote
                                             </PrimaryButton>
                                         </div>
-                                    )}
+                                    ) : (<div className='hidden'></div>)}
                                 </li>
                             ))}
                         </ul>
                         </div>
                         <div className='flex mb-4'>
-                            {(acctovote && auth.user.role === "voter") && (
+                            {(acctovote && auth.user.role === "voter") ? (
                                 <PrimaryButton onClick={submitVote} disabled={processing}>
                                     Submit Vote
                                 </PrimaryButton>
-                            )}
+                            ) : (<div className='hidden'></div>)} 
                         </div>
                     </div>
                 </div>
