@@ -10,120 +10,109 @@ import {
 import Chart from "react-apexcharts";
 import { Square3Stack3DIcon } from "@heroicons/react/24/outline";
 
-const chartConfigBar = {
-    type: "bar",
-    height: 240,
-    series: [
-        {
-            name: "Sales",
-            data: [50, 40, 300, 320, 500, 350, 200, 230, 500],
-        },
-    ],
-    options: {
-        chart: {
-            toolbar: {
-                show: false,
+
+export default function index({ auth, election, candidates, arrRes, noUrut, color }) {
+    const chartConfigBar = {
+        type: "bar",
+        height: 240,
+        series: [
+            {
+                name: "Sales",
+                data: arrRes,
             },
-        },
-        title: {
-            show: "",
-        },
-        dataLabels: {
-            enabled: false,
-        },
-        colors: ["#020617"],
-        plotOptions: {
-            bar: {
-                columnWidth: "40%",
-                borderRadius: 2,
-        },
-        },
-        xaxis: {
-            axisTicks: {
-                show: false,
-            },
-            axisBorder: {
-                show: false,
-            },
-            labels: {
-                style: {
-                    colors: "#616161",
-                    fontSize: "12px",
-                    fontFamily: "inherit",
-                    fontWeight: 400,
+        ],
+        options: {
+            chart: {
+                toolbar: {
+                    show: false,
                 },
             },
-            categories: [
-                "Apr",
-                "May",
-                "Jun",
-                "Jul",
-                "Aug",
-                "Sep",
-                "Oct",
-                "Nov",
-                "Dec",
-            ],
-        },
-        yaxis: {
-            labels: {
-                style: {
-                    colors: "#616161",
-                    fontSize: "12px",
-                    fontFamily: "inherit",
-                    fontWeight: 400,
-                },
+            title: {
+                show: "",
             },
-        },
-        grid: {
-            show: true,
-            borderColor: "#dddddd",
-            strokeDashArray: 5,
+            dataLabels: {
+                enabled: false,
+            },
+            colors: ["#020617"],
+            plotOptions: {
+                bar: {
+                    columnWidth: "40%",
+                    borderRadius: 2,
+            },
+            },
             xaxis: {
-                lines: {
-                    show: true,
+                axisTicks: {
+                    show: false,
+                },
+                axisBorder: {
+                    show: false,
+                },
+                labels: {
+                    style: {
+                        colors: "#616161",
+                        fontSize: "12px",
+                        fontFamily: "inherit",
+                        fontWeight: 400,
+                    },
+                },
+                categories: noUrut
+            },
+            yaxis: {
+                labels: {
+                    style: {
+                        colors: "#616161",
+                        fontSize: "12px",
+                        fontFamily: "inherit",
+                        fontWeight: 400,
+                    },
                 },
             },
-            padding: {
-                top: 5,
-                right: 20,
+            grid: {
+                show: true,
+                borderColor: "#dddddd",
+                strokeDashArray: 5,
+                xaxis: {
+                    lines: {
+                        show: true,
+                    },
+                },
+                padding: {
+                    top: 5,
+                    right: 20,
+                },
+            },
+            fill: {
+                opacity: 0.8,
+            },
+            tooltip: {
+                theme: "dark",
             },
         },
-        fill: {
-            opacity: 0.8,
-        },
-        tooltip: {
-            theme: "dark",
-        },
-    },
-};
-
-const chartConfigPie = {
-    type: "pie",
-    width: 280,
-    height: 280,
-    series: [44, 55, 13, 43, 22],
-    options: {
-        chart: {
-            toolbar: {
+    };
+    
+    const chartConfigPie = {
+        type: "pie",
+        width: 280,
+        height: 280,
+        series: arrRes,
+        options: {
+            chart: {
+                toolbar: {
+                    show: false,
+                },
+            },
+            title: {
+                show: "",
+            },
+            dataLabels: {
+                enabled: false,
+            },
+            colors: color,
+            legend: {
                 show: false,
             },
         },
-        title: {
-            show: "",
-        },
-        dataLabels: {
-            enabled: false,
-        },
-        colors: ["#020617", "#ff8f00", "#00897b", "#1e88e5", "#d81b60"],
-        legend: {
-            show: false,
-        },
-    },
-};
-
-
-export default function index({ auth, election, candidates }) {
+    };
     
     return (
         <AuthenticatedLayout user={auth.user}>
@@ -132,7 +121,7 @@ export default function index({ auth, election, candidates }) {
         <div className="py-12">
             <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div className='bg-[#282D56] p-4 w-full flex justify-center items-center rounded-t-lg'>
-                    <h1 className='text-white text-4xl font-extrabold'>Election Results</h1>
+                    <h1 className='text-white text-4xl font-extrabold'>Results {election.Title}</h1>
                 </div>
                 <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg min-h-[70vh] w-full p-4 flex flex-col lg:flex-row gap-4">
                     <div className="w-full lg:w-1/2">

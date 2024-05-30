@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->create([
             'name' => 'Admin',
-            'NIM' => 'G6401221999',
+            'NIM' => 'X6401221999',
             'fakultas' => 'coba',
             'departemen' => 'coba',
             'email' => 'admin@gmail.com',
@@ -25,14 +25,52 @@ class DatabaseSeeder extends Seeder
             'role'=>'admin'
         ]);
 
-        User::factory()->create([
-            'name' => 'coba a',
-            'NIM' => 'A1401221999',
-            'fakultas' => 'coba',
-            'departemen' => 'coba',
-            'email' => 'a@gmail.com',
-            'password' => bcrypt('bismillah'),
-            'role'=>'voter'
+        User::factory()->createMany([
+            [
+                'name' => 'Samsul',
+                'NIM' => 'A1401221999',
+                'fakultas' => 'Pertanian',
+                'departemen' => 'Manajemen Sumberdaya Lahan',
+                'email' => 'a1@gmail.com',
+                'password' => Hash::make('bismillah'),
+                'role' => 'voter',
+            ],
+            [
+                'name' => 'Siti',
+                'NIM' => 'A2401221999',
+                'fakultas' => 'Pertanian',
+                'departemen' => 'Agronomi dan Hortikultura',
+                'email' => 'a2@gmail.com',
+                'password' => Hash::make('bismillah'),
+                'role' => 'voter',
+            ],
+            [
+                'name' => 'Budi',
+                'NIM' => 'A3401221999',
+                'fakultas' => 'Pertanian',
+                'departemen' => 'Proteksi Tanaman',
+                'email' => 'a3@gmail.com',
+                'password' => Hash::make('bismillah'),
+                'role' => 'voter',
+            ],
+            [
+                'name' => 'Ani',
+                'NIM' => 'A4401221999',
+                'fakultas' => 'Pertanian',
+                'departemen' => 'Arsitektur Lanskap',
+                'email' => 'a4@gmail.com',
+                'password' => Hash::make('bismillah'),
+                'role' => 'voter',
+            ],
+            [
+                'name' => 'Tono',
+                'NIM' => 'A5401221999',
+                'fakultas' => 'Pertanian',
+                'departemen' => 'Smart Agriculture',
+                'email' => 'a5@gmail.com',
+                'password' => Hash::make('bismillah'),
+                'role' => 'voter',
+            ]
         ]);
 
         User::factory()->create([

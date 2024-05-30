@@ -221,7 +221,13 @@ class ElectionController extends Controller
 
         $res = $election->Result;
         $arrRes = explode(',', $res);
+        $tmp =$arrRes;
+        $arrRes =[];
 
+        foreach($tmp as $t){
+            $arrRes[]=(int)$t;
+        }
+        
         foreach ($candidates as $candidate) {
             $candidate['result']=$arrRes[$candidate->SerialNumber];
             $pemilih += $arrRes[$candidate->SerialNumber];
@@ -231,11 +237,44 @@ class ElectionController extends Controller
         $newCandidate->Chairman = "Tidak Memilih";
         $newCandidate->result = $election->TotalVoter - $pemilih;
 
+        array_shift($arrRes);
+
+        $sz= count($arrRes);
+        $nourut = [];
+        for ($i = 1; $i <= $sz; $i++) {
+            $nourut[] = $i;
+        }
+        $nourut[] = "Tidak Memilih";
+
+        $arrRes[]=$election->TotalVoter - $pemilih;
+
         $candidates->add($newCandidate);
+        // return dd($arrRes, $nourut);
+
+        // bikin warna random
+        function generateRandomColor() {
+            $red = mt_rand(0, 255);
+            $green = mt_rand(0, 255);
+            $blue = mt_rand(0, 255);
+        
+            $color = sprintf("#%02x%02x%02x", $red, $green, $blue);
+        
+            return $color;
+        }
+
+        $colors = [];
+        for ($i = 0; $i <= $sz; $i++) {
+            $colors[] = generateRandomColor();
+        }
+
+        // return dd($colors);
 
         return Inertia::render('Election/Results',[
             'election' =>$election,
-            'candidates'=>$candidates
+            'candidates'=>$candidates,
+            'arrRes' =>$arrRes,
+            'noUrut'=>$nourut,
+            'color' => $colors
         ]);
     }
 }
