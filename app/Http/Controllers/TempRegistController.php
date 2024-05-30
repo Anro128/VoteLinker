@@ -38,9 +38,32 @@ class TempRegistController extends Controller
         return back();
     }
 
+    function enc($text, $shift) {
+        $result = '';
+        for ($i = 0; $i < strlen($text); $i++) {
+            $char = $text[$i];
+
+            if (ctype_upper($char)) {
+                $result .= chr((ord($char) + $shift - 65) % 26 + 65);
+            }
+            else if (ctype_lower($char)) {
+                $result .= chr((ord($char) + $shift - 97) % 26 + 97);
+            }
+            else {
+                $result .= $char;
+            }
+        }
+    
+        return $result;
+    }
+    
+    function dec($text, $shift) {
+        return $this->enc($text, -$shift);
+    }
 
     public function acc($id){
         $data =  TempRegist::find($id);
+        $data['password'] = $this->dec($data['password'],7);
 
         $user = User::create([
             'name' => $data->name,
@@ -75,6 +98,7 @@ class TempRegistController extends Controller
 
         return back();
     }
+
     
     public function store(Request $request): RedirectResponse
     {
@@ -97,6 +121,7 @@ class TempRegistController extends Controller
             
             $validated['KTM'] = $filePath;  // Simpan jalur foto di database
         }
+        $validated['password'] = $this->enc($validated['password'],7);
 
         TempRegist::Create($validated);
 
