@@ -23,139 +23,140 @@ export default function Edit({ auth, elections,candidate }) {
 
 
     return (
-        <AuthenticatedLayout
-            user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Add Candidate</h2>}
-        >
+        <AuthenticatedLayout user={auth.user}>
             <Head title="Edit Candidate" />
-            
-            <form onSubmit={submit}>
 
-                <div>
-                    <label for="election_id">Election</label> 
-                    <select 
-                    id="election_id" 
-                    name="election_id" 
-                    value={data.election_id}
-                    onChange={(e) => setData('election_id', e.target.value)}
-                    required>
-                    <option value="" >Select Election</option>
-                        {elections.map((election) => (
-                            <option key={election.id} value={election.id} >{election.Title}</option>
-                        ))}
-                    </select>              
-                </div>
+            <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
+                <h1 className="text-2xl font-bold mb-6">Edit Candidate</h1>
+                
+                <form onSubmit={submit} className="space-y-6">
 
-                <div>
-                    <InputLabel htmlFor="SerialNumber" value="SerialNumber" />
+                    <div>
+                        <label htmlFor="election_id" className="block text-sm font-medium text-gray-700">Election</label> 
+                        <select 
+                            id="election_id" 
+                            name="election_id" 
+                            value={data.election_id}
+                            onChange={(e) => setData('election_id', e.target.value)}
+                            required
+                            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+                        >
+                            <option value="" >Select Election</option>
+                            {elections.map((election) => (
+                                <option key={election.id} value={election.id}>{election.Title}</option>
+                            ))}
+                        </select>              
+                    </div>
 
-                    <TextInput
-                        id="SerialNumber"
-                        name="SerialNumber"
-                        value={data.SerialNumber}
-                        className="mt-1 block w-full"
-                        autoComplete="SerialNumber"
-                        isFocused={true}
-                        onChange={(e) => setData('SerialNumber', e.target.value)}
-                        required
-                    />
+                    <div>
+                        <InputLabel htmlFor="SerialNumber" value="SerialNumber" className="block text-sm font-medium text-gray-700" />
 
-                    <InputError message={errors.SerialNumber} className="mt-2" />
-                </div>
+                        <TextInput
+                            id="SerialNumber"
+                            name="SerialNumber"
+                            value={data.SerialNumber}
+                            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+                            autoComplete="SerialNumber"
+                            isFocused={true}
+                            onChange={(e) => setData('SerialNumber', e.target.value)}
+                            required
+                        />
 
-                <div>
-                    <InputLabel htmlFor="photo" value="Photo" />
-                    <input
-                        type="file"
-                        name="photo"
-                        id="photo"
-                        accept="image/*" 
-                        onChange={(e) => {
-                            const file = e.target.files[0]; 
-                            setData('photo', file ? file : null); 
-                        }}
-                    />
-                    <InputError message={errors.photo} className="mt-2" />
-                </div>
+                        <InputError message={errors.SerialNumber} className="mt-2 text-sm text-red-600" />
+                    </div>
 
-                <div>
-                    <InputLabel htmlFor="Chairman" value="Calon Ketua" />
+                    <div>
+                        <InputLabel htmlFor="photo" value="Photo" className="block text-sm font-medium text-gray-700" />
+                        <input
+                            type="file"
+                            name="photo"
+                            id="photo"
+                            accept="image/*" 
+                            onChange={(e) => {
+                                const file = e.target.files[0]; 
+                                setData('photo', file ? file : null); 
+                            }}
+                            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+                        />
+                        <InputError message={errors.photo} className="mt-2 text-sm text-red-600" />
+                    </div>
 
-                    <TextInput
-                        id="Chairman"
-                        name="Chairman"
-                        value={data.Chairman}
-                        className="mt-1 block w-full"
-                        autoComplete="Chairman"
-                        isFocused={true}
-                        onChange={(e) => setData('Chairman', e.target.value)}
-                        required
-                    />
+                    <div>
+                        <InputLabel htmlFor="Chairman" value="Calon Ketua" className="block text-sm font-medium text-gray-700" />
 
-                    <InputError message={errors.Chairman} className="mt-2" />
-                </div>
+                        <TextInput
+                            id="Chairman"
+                            name="Chairman"
+                            value={data.Chairman}
+                            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+                            autoComplete="Chairman"
+                            isFocused={true}
+                            onChange={(e) => setData('Chairman', e.target.value)}
+                            required
+                        />
 
-                <div>
-                    <InputLabel htmlFor="DeputyChairman" value="Calon Wakil Ketua" />
+                        <InputError message={errors.Chairman} className="mt-2 text-sm text-red-600" />
+                    </div>
 
-                    <TextInput
-                        id="DeputyChairman"
-                        name="DeputyChairman"
-                        value={data.DeputyChairman}
-                        className="mt-1 block w-full"
-                        autoComplete="DeputyChairman"
-                        isFocused={true}
-                        onChange={(e) => setData('DeputyChairman', e.target.value)}
-                        required
-                    />
+                    <div>
+                        <InputLabel htmlFor="DeputyChairman" value="Calon Wakil Ketua" className="block text-sm font-medium text-gray-700" />
 
-                    <InputError message={errors.DeputyChairman} className="mt-2" />
-                </div>
+                        <TextInput
+                            id="DeputyChairman"
+                            name="DeputyChairman"
+                            value={data.DeputyChairman}
+                            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+                            autoComplete="DeputyChairman"
+                            isFocused={true}
+                            onChange={(e) => setData('DeputyChairman', e.target.value)}
+                            required
+                        />
 
-                <div>
-                    <InputLabel htmlFor="Vision" value="Visi"/>
+                        <InputError message={errors.DeputyChairman} className="mt-2 text-sm text-red-600" />
+                    </div>
 
-                    <TextInput
-                        id="Vision"
-                        name="Vision"
-                        value={data.Vision}
-                        className="mt-1 block w-full"
-                        autoComplete="Vision"
-                        isFocused={true}
-                        onChange={(e) => setData('Vision', e.target.value)}
-                        required
-                    />
+                    <div>
+                        <InputLabel htmlFor="Vision" value="Visi" className="block text-sm font-medium text-gray-700" />
 
-                    <InputError message={errors.Vision} className="mt-2" />
-                </div>
+                        <TextInput
+                            id="Vision"
+                            name="Vision"
+                            value={data.Vision}
+                            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+                            autoComplete="Vision"
+                            isFocused={true}
+                            onChange={(e) => setData('Vision', e.target.value)}
+                            required
+                        />
 
-                <div>
-                    <InputLabel htmlFor="Mision" value="Misi"/>
+                        <InputError message={errors.Vision} className="mt-2 text-sm text-red-600" />
+                    </div>
 
-                    <TextInput
-                        id="Mision"
-                        name="Mision"
-                        value={data.Mision}
-                        className="mt-1 block w-full"
-                        autoComplete="Mision"
-                        isFocused={true}
-                        onChange={(e) => setData('Mision', e.target.value)}
-                        required
-                    />
+                    <div>
+                        <InputLabel htmlFor="Mision" value="Misi" className="block text-sm font-medium text-gray-700" />
 
-                    <InputError message={errors.Mision} className="mt-2" />
-                </div>
-                           
-            
-                <div className="flex items-center justify-end mt-4">
-                    
+                        <TextInput
+                            id="Mision"
+                            name="Mision"
+                            value={data.Mision}
+                            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+                            autoComplete="Mision"
+                            isFocused={true}
+                            onChange={(e) => setData('Mision', e.target.value)}
+                            required
+                        />
 
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        EDIT
-                    </PrimaryButton>
-                </div>
-            </form>
-            
+                        <InputError message={errors.Mision} className="mt-2 text-sm text-red-600" />
+                    </div>
+                            
+                    <div className="flex items-center justify-end mt-6">
+                        <PrimaryButton className="ml-4" disabled={processing}>
+                            EDIT
+                        </PrimaryButton>
+                    </div>
+                </form>
+            </div>
         </AuthenticatedLayout>
+
     );
 }

@@ -91,58 +91,61 @@ export default function ElectionDetails({ auth, election, candidates, acctovote 
                             </div>
                         </div>
                         <div className='min-h-[70vh] w-full p-4'>
-                            <ul className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
-                                {candidates.map((candidate) => (
-                                    <li className='font-bold rounded-lg p-4 bg-white border border-gray-300 shadow-lg flex flex-col gap-4' key={candidate.id}>
-                                        <div className='flex flex-col gap-2'>
-                                            {candidate.Photo && (
-                                                <div className='flex justify-center'>
-                                                    <img
-                                                        src={`/storage/${candidate.Photo}`} 
-                                                        alt={`${candidate.Chairman}`} 
-                                                        className="w-[200px] h-[200px] object-cover rounded-md" 
-                                                    />
-                                                </div>
-                                            )}
-                                            <div className='bg-blue-100 p-4 rounded-md'>
-                                                <div>Ketua: {candidate.Chairman}</div>
-                                                <div>Wakil Ketua: {candidate.DeputyChairman}</div>
-                                            </div>
-                                        </div>
-                                        <div className='flex flex-col items-center'>
+                        <ul className='flex flex-wrap justify-center gap-4'>
+                            {candidates.map((candidate) => (
+                                <li 
+                                    className='font-bold rounded-lg p-4 bg-white border border-gray-300 shadow-lg flex flex-col gap-4 w-full sm:w-[calc(50%-16px)] lg:w-[calc(33.333%-16px)] transition-transform transform hover:scale-105 hover:shadow-2xl' 
+                                    key={candidate.id}
+                                >
+                                    <div className='flex flex-col gap-2'>
+                                        {candidate.Photo && (
                                             <div className='flex justify-center'>
-                                                <button
-                                                    className='bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700'
-                                                    onClick={() => handleOpenModal(candidate.Vision, candidate.Mision)}
-                                                >
-                                                    Lihat Visi & Misi
-                                                </button>
-                                                {auth.user.role === "admin" && (
-                                                    <a className='ml-2 bg-white text-blue-600 border border-blue-600 px-4 py-2 rounded-md hover:bg-blue-50' href={route('candidate.edit', {id: candidate.id})}>
-                                                        Edit Candidate
-                                                    </a>
-                                                )}
-                                            </div>
-                                            {auth.user.role === "admin" && (
-                                                <button 
-                                                    onClick={() => handleDelete(candidate.id)} 
-                                                    className='mt-2 p-1 px-2 w-fit bg-[#E10000] rounded-md text-white'>
-                                                    DELETE
-                                                </button>
-                                            )}
-                                        </div>
-                                        {(acctovote && auth.user.role === "voter") && (
-                                            <div className='flex justify-center mt-2'>
-                                                <PrimaryButton
-                                                    onClick={() => handleVote(candidate.SerialNumber)}
-                                                >
-                                                    Vote
-                                                </PrimaryButton>
+                                                <img
+                                                    src={`/storage/${candidate.Photo}`} 
+                                                    alt={`${candidate.Chairman}`} 
+                                                    className="w-[200px] h-[200px] object-cover rounded-md" 
+                                                />
                                             </div>
                                         )}
-                                    </li>
-                                ))}
-                            </ul>
+                                        <div className='bg-blue-100 p-4 rounded-md'>
+                                            <div>Ketua: {candidate.Chairman}</div>
+                                            <div>Wakil Ketua: {candidate.DeputyChairman}</div>
+                                        </div>
+                                    </div>
+                                    <div className='flex flex-col items-center'>
+                                        <div className='flex justify-center'>
+                                            <button
+                                                className='bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700'
+                                                onClick={() => handleOpenModal(candidate.Vision, candidate.Mision)}
+                                            >
+                                                Lihat Visi & Misi
+                                            </button>
+                                            {auth.user.role === "admin" && (
+                                                <a className='ml-2 bg-white text-blue-600 border border-blue-600 px-4 py-2 rounded-md hover:bg-blue-50' href={route('candidate.edit', {id: candidate.id})}>
+                                                    Edit Candidate
+                                                </a>
+                                            )}
+                                        </div>
+                                        {auth.user.role === "admin" && (
+                                            <button 
+                                                onClick={() => handleDelete(candidate.id)} 
+                                                className='mt-2 p-1 px-2 w-fit bg-[#E10000] rounded-md text-white'>
+                                                DELETE
+                                            </button>
+                                        )}
+                                    </div>
+                                    {(acctovote && auth.user.role === "voter") && (
+                                        <div className='flex justify-center mt-2'>
+                                            <PrimaryButton
+                                                onClick={() => handleVote(candidate.SerialNumber)}
+                                            >
+                                                Vote
+                                            </PrimaryButton>
+                                        </div>
+                                    )}
+                                </li>
+                            ))}
+                        </ul>
                         </div>
                         <div className='flex mb-4'>
                             {(acctovote && auth.user.role === "voter") && (
@@ -156,26 +159,26 @@ export default function ElectionDetails({ auth, election, candidates, acctovote 
 
                 {/* Modal */}
                 {isModalOpen && (
-                    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-                        <div className="bg-white rounded-lg p-6 w-full max-w-lg">
-                            <h2 className="text-2xl font-bold mb-4">Visi & Misi</h2>
-                            <div className="mb-4">
-                                <h3 className="font-bold">Visi:</h3>
-                                <p>{modalContent.vision}</p>
-                            </div>
-                            <div>
-                                <h3 className="font-bold">Misi:</h3>
-                                <p>{modalContent.mission}</p>
-                            </div>
-                            <button
-                                className="mt-6 bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700"
-                                onClick={handleCloseModal}
-                            >
-                                Close
-                            </button>
+                <div className={`fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 transition-opacity duration-300 ${isModalOpen ? 'opacity-100' : 'opacity-0'}`}>
+                    <div className={`bg-white rounded-lg p-6 w-full max-w-lg transform transition-transform duration-300 ${isModalOpen ? 'scale-100' : 'scale-95'}`}>
+                        <h2 className="text-2xl font-bold mb-4">Visi & Misi</h2>
+                        <div className="mb-4">
+                            <h3 className="font-bold">Visi:</h3>
+                            <p>{modalContent.vision}</p>
                         </div>
+                        <div>
+                            <h3 className="font-bold">Misi:</h3>
+                            <p>{modalContent.mission}</p>
+                        </div>
+                        <button
+                            className="mt-6 bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700"
+                            onClick={handleCloseModal}
+                        >
+                            Close
+                        </button>
                     </div>
-                )}
+                </div>
+            )}
             </div>
         </AuthenticatedLayout>
     );

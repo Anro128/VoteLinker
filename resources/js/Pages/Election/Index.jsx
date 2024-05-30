@@ -35,17 +35,21 @@ export default function index({ auth, elections }) {
                         </div>
                             
                         <div className='px-6 flex flex-col justify-center items-center w-full'>
-                            <ul className='flex flex-col gap-4 w-full justify-center'>
+                            <ul className='flex flex-col gap-6 w-full justify-center'>
                                 {elections.map((election) => (
-                                    <li key={election.id} className='bg-[#282D56] rounded-md p-2 flex flex-col max-h-[160px] text-white'>
-                                        <li className='font-black text-xl'>{election.Title}</li>
-                                        <li>{election.Description}</li>
+                                    <li key={election.id} className='bg-[#282D56] rounded-md p-4 flex flex-col max-h-[160px] text-white shadow-lg'>
+                                        <div className='font-black text-2xl mb-2'>{election.Title}</div>
+                                        <div className='mb-4 text-sm'>{election.Description}</div>
                                         <div className='flex gap-3'>
-                                            <a href={route('election.detail', {id:election.id})}
-                                            className='mt-2 p-1 px-2 w-[80px] bg-[#F08200] text-center rounded-md'>DETAIL</a>
+                                            <a href={route('election.detail', { id: election.id })}
+                                            className='mt-2 p-1 px-2 w-[80px] bg-[#F08200] text-center rounded-md transition-all duration-300 hover:bg-[#d07000]'>
+                                                DETAIL
+                                            </a>
                                             {auth.user.role === "admin" && (
                                                 <button onClick={() => handleDelete(election.id)}
-                                                className='mt-2 p-1 px-2 w-[80px] text-center bg-[#E10000] rounded-md'>DELETE</button>
+                                                        className='mt-2 p-1 px-2 w-[80px] text-center bg-[#E10000] rounded-md transition-all duration-300 hover:bg-[#c00000]'>
+                                                    DELETE
+                                                </button>
                                             )}
                                         </div>
                                     </li>

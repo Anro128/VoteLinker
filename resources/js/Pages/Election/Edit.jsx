@@ -34,8 +34,6 @@ export default function Edit({ auth,election }) {
             user={auth.user}
         >
             <Head title="Edit Election" />
-
-            <h2 className="font-semibold text-3xl text-gray-800 leading-tight flex justify-center mt-10">Edit Election</h2>
             
             <form onSubmit={submit} className='mx-[100px] px-[45px] flex flex-col gap-5 h-[77vh] justify-center'>
                 <div>

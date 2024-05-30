@@ -7,7 +7,7 @@ export default function Guest({ children }) {
     return (
     <>    
         <div className='min-h-[900px] bg-[#183459]'> 
-            <div className="min-h-[900px] flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-[url('/assets/background.svg')]">
+            <div className="min-h-[990px] flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-[url('/assets/background.svg')]">
                 <div>
                     <Link href="/">
                         <img src='/assets/votelinker_logo.png'></img>
