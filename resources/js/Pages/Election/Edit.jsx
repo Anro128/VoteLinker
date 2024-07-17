@@ -89,13 +89,13 @@ export default function Edit({ auth,election }) {
 
                 <div>
                     <button type="button" onClick={updateOpen}>
-                        {data.isopen ? 'OPEN' : 'CLOSE'}
+                        {data.isopen ? 'ELECTION OPEN' : 'ELECTION CLOSE'}
                     </button>
                 </div>
 
                 <div>
                     <button type="button" onClick={updatePublic}>
-                        {data.ispublic ? 'PUBLIC' : 'PRIVATE'}
+                        {data.ispublic ? 'RESULT PUBLIC' : 'RESULT PRIVATE'}
                     </button>
                 </div>
                 

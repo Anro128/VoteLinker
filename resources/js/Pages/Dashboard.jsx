@@ -13,7 +13,7 @@ export default function Dashboard({ auth }) {
                         <img src='/assets/Separator.png' className='my-4 animate-fadeIn'></img>
                     </div>
                     <div className='flex flex-col md:flex-row justify-center items-center gap-8'>
-                        <img className='md:max-w-lg w-full rounded shadow-lg animate-fadeInLeft' src='/assets/using-laptop.jpg.png' alt='Using Laptop'></img>
+                        <img className='md:max-w-lg w-full rounded shadow-lg animate-fadeInLeft' src='/assets/using-laptop.jpg' alt='Using Laptop'></img>
                         <div className='flex flex-col gap-5 text-justify max-w-lg animate-fadeInRight'>
                             <p className='text-gray-600 text-xl'>VoteLinker is an election system that invites voters to record their votes and secret ballots electronically.</p>
                             <p className='text-gray-600 text-xl'>It has a friendly user interface and allows voters to cast their votes in a few simple steps. VoteLinker is a reliable, comprehensive, and accessible eVote voting model.</p>
